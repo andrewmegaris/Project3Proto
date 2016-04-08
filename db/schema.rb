@@ -11,16 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408055841) do
+ActiveRecord::Schema.define(version: 20160408122201) do
 
-  create_table "documents", force: :cascade do |t|
-    t.string   "filename"
-    t.string   "content_type"
-    t.binary   "file_contents"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "user_id"
-  end
+# Could not dump table "documents" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

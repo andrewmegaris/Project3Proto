@@ -1,4 +1,5 @@
 class Document < ActiveRecord::Base
+  belongs_to :user
   # app/models/document.rb
 def initialize(params = {})
   file = params.delete(:file)
