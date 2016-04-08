@@ -1,0 +1,40 @@
+#Product Backlog
+ - User creation
+	 - Description: Provide an interface for a new user to create an account.
+	 - Time: 1 day
+ - User login
+	 - Description: Allow the user to log in and take them to their homepage.
+	 - Time: 1 day
+ - Upload files
+	 -  Description: Provide an interface for a logged in user to upload their files.
+	 - Time: 1 day
+ - Download files
+	 - Description: Give the logged in user a list of their own files to download.
+	 - Time: 1 day
+ - Hash user passwords in database
+ 	 - Description: Store user passwords in the database in a non-plain-text format.
+	 - Time: 1 day
+ - User data quota
+ 	 - Description: Display the amount of allocated space the user has left on the server.
+	 - Time: 1 day
+ - Administration panel
+ 	 - Description: Webpage for the administrator to view/edit users and their respective stored data.
+	 - Time: 1 day
+ - Email confirmations
+ 	 - Description: Send emails to registered users regarding their successful account creation.
+	 - Time: 1 day
+ - Webpage styling
+ 	 - Description: Use CSS to style the webpages for a more appealing visual experience.
+	 - Time: 1 day
+ - Installer
+ 	 - Description: Create a custom installer file for easy user server set up.
+	 - Time: 1 day
+ - User kill switch
+ 	 - Description: Allow the user to completely delete their account and all files they own on the server.
+	 - Time: 1 day
+ - Generate code documentation
+	 - Description: Generate documentation for the code base.
+	 - Time: 1 day
+ - UML diagrams
+	 - Description: Create a state diagram, use case diagram, and class diagram for the project.
+	 - Time: 1 day
