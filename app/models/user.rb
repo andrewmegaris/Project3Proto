@@ -1,3 +1,4 @@
+# Enters a user into the database, and verifies their credientials on login.
 class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
@@ -14,7 +15,10 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   has_many :documents, dependent: :destroy
   accepts_nested_attributes_for :documents
+
   # returns the hash digest of the given string
+  # 
+  # @param [String] string The password to hash.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST 
                                                 : BCrypt::Engine.cost
@@ -33,6 +37,9 @@ class User < ActiveRecord::Base
   end
   
   # returns true if the given token matches the digest.
+  # 
+  # @param [String] attribute Attribute of the digest.
+  # @param [Token] token The token to check with the digest.
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
@@ -44,7 +51,7 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, nil)
   end
   
-    # activates an account
+  # activates an account
   def activate
     update_attribute(:activated, true)
     update_attribute(:activated_at, Time.zone.now)
