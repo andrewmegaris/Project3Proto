@@ -1,5 +1,6 @@
 # Enters a user into the database, and verifies their credientials on login.
 class User < ActiveRecord::Base
+  has_many :folders
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_acvtivation_digest
