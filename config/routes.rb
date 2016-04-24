@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
  
+  resources :folders
   resources :documents
   get 'password_resets/new'
 
