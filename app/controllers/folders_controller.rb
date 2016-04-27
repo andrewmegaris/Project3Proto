@@ -1,15 +1,17 @@
 class FoldersController < ApplicationController
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
+   
 
   # GET /folders
   # GET /folders.json
   def index
-    @folders = Folder.all
+    @folders = current_user.folders
   end
 
   # GET /folders/1
   # GET /folders/1.json
   def show
+    @folder = Folder.find(params[:id])
   end
 
   # GET /folders/new
@@ -19,6 +21,7 @@ class FoldersController < ApplicationController
 
   # GET /folders/1/edit
   def edit
+    @folder = current_user.folders.find(params[:id])
   end
 
   # POST /folders
@@ -28,18 +31,19 @@ class FoldersController < ApplicationController
 
     respond_to do |format|
       if @folder.save
-        format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
+       format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
         format.json { render :show, status: :created, location: @folder }
       else
         format.html { render :new }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
     end
-  end
+  end 
 
   # PATCH/PUT /folders/1
   # PATCH/PUT /folders/1.json
   def update
+    @folder = current_user.folders.find(params[:id])
     respond_to do |format|
       if @folder.update(folder_params)
         format.html { redirect_to @folder, notice: 'Folder was successfully updated.' }
@@ -54,7 +58,7 @@ class FoldersController < ApplicationController
   # DELETE /folders/1
   # DELETE /folders/1.json
   def destroy
-    @folder.destroy
+    @folder = current_user.folders.find(params[:id])
     respond_to do |format|
       format.html { redirect_to folders_url, notice: 'Folder was successfully destroyed.' }
       format.json { head :no_content }
