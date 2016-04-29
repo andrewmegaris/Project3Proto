@@ -1,7 +1,6 @@
 # Enters a file into the database
 class Document < ActiveRecord::Base
   belongs_to :user
-
   # app/models/document.rb 
   
   # Initializes a spot in the database
@@ -14,6 +13,7 @@ class Document < ActiveRecord::Base
       self.filename = sanitize_filename(file.original_filename)
       self.content_type = file.content_type
       self.file_contents = file.read
+      self.file_size = file.size
     end
   end
 

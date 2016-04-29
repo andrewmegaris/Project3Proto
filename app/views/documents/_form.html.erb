@@ -13,8 +13,8 @@
   <div class="field">
     <%= f.file_field :file %>
   </div>
-  <div class="field">
-    <%= f.collection_select :belongs_to, User.all, :id, :name %> <br>
+  <div class ="field">
+    <%= f.collection_select(:user_id,User.all,:id,:id,prompt: true)%>
   </div>
   <div class="actions">
     <%= f.submit %>
