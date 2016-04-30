@@ -5,8 +5,7 @@ class DocumentsController < ApplicationController
   # GET /documents.json
   def index
     @documents = Document.all
-    
-          @folders = Folder.all
+    @folders = Folder.roots
       
       #@documents = current_user.documents.order("uploaded_file_file_name desc")
     

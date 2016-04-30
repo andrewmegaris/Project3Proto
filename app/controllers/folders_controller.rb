@@ -5,7 +5,7 @@ class FoldersController < ApplicationController
   # GET /folders
   # GET /folders.json
   def index
-    @folders = current_user.folders
+    @folders = Folder.all
   end
 
   # GET /folders/1
@@ -17,6 +17,12 @@ class FoldersController < ApplicationController
   # GET /folders/new
   def new
     @folder = Folder.new
+    if params[:folder_id]
+      
+      @current_folder = Folder.find(params[:folder_id])
+      
+      @folder.parent_id = @current_folder.folder_id
+    end
   end
 
   # GET /folders/1/edit
@@ -29,14 +35,18 @@ class FoldersController < ApplicationController
   def create
     @folder = Folder.new(folder_params)
 
-    respond_to do |format|
-      if @folder.save
-       format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
+    if @folder.save
+       flash[:notice] = "Folder was successfully created."
         format.json { render :show, status: :created, location: @folder }
+        
+        if @folder.parent 
+          redirect_to folder_path(@folder.parent)
+        else
+          redirect_to root_url
+        end
       else
         format.html { render :new }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
-      end
     end
   end 
 
@@ -62,6 +72,23 @@ class FoldersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to folders_url, notice: 'Folder was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+  
+  def browse
+    @current_folder = Folder.find(params[:folder_id])
+    
+    if @current_folder
+      
+      @folders = @current_folder.children
+      
+      @documents = @current_folder.documents.order("uploaded_file_file_name desc")
+      
+      render :action => "index"
+      
+    else
+      flash[:error] = "Folder does not exist"
+      redirect_to root_url 
     end
   end
 

@@ -17,3 +17,15 @@
 
 <%= link_to 'Edit', edit_folder_path(@folder) %> |
 <%= link_to 'Back', folders_path %>
+
+
+<br>
+
+<%= link_to 'New Document', new_document_path %>
+
+<% if @current_folder %>
+  <%= link_to 'New Folder', new_sub_folder_path(@current_folder) %>
+<% else %>
+  <%= link_to 'New Folder', new_folder_path %>
+<% end %>
+

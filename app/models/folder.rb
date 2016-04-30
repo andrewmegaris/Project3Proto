@@ -1,6 +1,7 @@
 class Folder < ActiveRecord::Base
     acts_as_tree
     belongs_to :user
+    has_many :documents
     
     def initialize(params = {})
     folder = params.delete(:folder)

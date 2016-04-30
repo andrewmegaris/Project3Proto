@@ -1,5 +1,8 @@
 # Enters a file into the database
 class Document < ActiveRecord::Base
+  attr_accessor :user_id, :file_contents, :folder_id
+  acts_as_tree
+  belongs_to :folder
   belongs_to :user
 
   # app/models/document.rb 
