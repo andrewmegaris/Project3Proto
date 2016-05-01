@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    @documents = Document.where("folder_id is NULL")
     @folders = Folder.roots
       
       #@documents = current_user.documents.order("uploaded_file_file_name desc")
@@ -22,6 +22,10 @@ class DocumentsController < ApplicationController
   # GET /documents/new
   def new
     @document = Document.new
+    if params[:folder_id]
+      @current_folder = Folder.find(params[:folder_id])
+      @document.folder_id = @current_folder.id
+    end
   end
 
   # GET /documents/1/edit
@@ -32,15 +36,20 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
-  
-    respond_to do |format|
+    #respond_to do |format|
       if @document.save
-        format.html { redirect_to @document, notice: 'Document was successfully created.' }
+        flash[:notice] = "Document was successfully created."
+        if @document.folder
+        redirect_to folder_path(@document.folder)
         format.json { render :show, status: :created, location: @document }
+        else
+        redirect_to @document
+      end
       else
         format.html { render :new }
         format.json { render json: @document.errors, status: :unprocessable_entity }
-      end
+      
+      #end
     end
   end
 

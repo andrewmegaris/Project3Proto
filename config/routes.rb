@@ -18,8 +18,9 @@ Rails.application.routes.draw do
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
-  get    'folder/:folder_id' => 'folders#browse'
-  get    'folder/:folder_id/new_folder' => 'folders#new', :as => 'new_sub_folder' 
+  get    'folders/:folder_id' => 'folders#browse'
+  get    'folders/:folder_id/new' => 'folders#new', :as => 'new_sub_folder' 
+  get    'folders/:folder_id/new_document' => 'documents#new', :as => 'new_sub_document'
   
   delete 'logout'  => 'sessions#destroy'
   resources :users
