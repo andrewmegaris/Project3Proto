@@ -5,7 +5,7 @@ class FoldersController < ApplicationController
   # GET /folders
   # GET /folders.json
   def index
-    @folders = Folder.all
+    @folders = Folder.roots
   end
 
   # GET /folders/1
@@ -14,7 +14,7 @@ class FoldersController < ApplicationController
     @folder = Folder.find(params[:id])
     @folders = @folder.children
     @current_folder= Folder.find(params[:id])
-    @documents = Document.where(:folder_id => Folder.find(params[:id]))
+    @documents = Document.where("folder_id is id")
   end
 
   # GET /folders/new

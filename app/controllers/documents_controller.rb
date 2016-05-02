@@ -44,13 +44,13 @@ class DocumentsController < ApplicationController
         format.json { render :show, status: :created, location: @document }
         else
         redirect_to @document
-      end
+        end
       else
         format.html { render :new }
         format.json { render json: @document.errors, status: :unprocessable_entity }
       
       #end
-    end
+      end
   end
 
   # PATCH/PUT /documents/1
