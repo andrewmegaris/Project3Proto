@@ -14,10 +14,21 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :test
-  host = 'https://rails-tutorial-avelyntb1.c9users.io/'
-  config.action_mailer.default_url_options = { host: host }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  address:              'smtp.mail.yahoo.com',
+  port:                 587,
+  domain:               'localhost.com',
+  user_name:            'group13proj4',
+  password:             'kueecs448',
+  authentication:       'plain',
+  enable_starttls_auto: true  }
+
+  #config.action_mailer.delivery_method = :test
+  #host = 'https://rails-tutorial-avelyntb1.c9users.io/'
+  #config.action_mailer.default_url_options = { host: host }
   
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
