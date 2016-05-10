@@ -11,3 +11,41 @@
     </section>
   </aside>
 </div>
+
+<p id="chart"></p>
+
+<script>var use = 0;</script> <!--variable to be used later, indicates total space used by documents-->
+<% @documents.each do |document| %>
+    
+<script>use+=<%= document.file_size  %>;</script> <!--Add each document's size to total disk usage-->
+<% end %>
+
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!--Create the chart-->
+<script type="text/javascript">
+
+  // Load the Visualization API and the corechart package.
+  google.charts.load('current', {'packages':['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Callback that creates a data table
+  function drawChart() {
+
+    // Create the data table
+    var data = new google.visualization.DataTable();
+    data.addColumn('string');
+    data.addColumn('number');
+    data.addRows([
+      ['Not used', 500000-use], //Not used based on 500 MB of storage
+      ['Used', use] //From previous scripts
+    ]);
+
+    var options = {'title':'Disk Usage','width':400,'height':300};
+
+    var chart = new google.visualization.PieChart(document.getElementById('chart'));
+    chart.draw(data, options);
+  }
+</script>
