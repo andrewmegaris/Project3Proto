@@ -2,6 +2,8 @@
 
 <h1>Listing Documents</h1>
 
+<p id="chart"></p>
+
 <table border="2">
   <thead>
     <tr>
@@ -14,6 +16,7 @@
   </thead>
 
   <tbody>
+    <script>var use = 0;</script>
     <% @documents.each do |document| %>
       <tr>
         <td><%= document.filename %></td>
@@ -24,6 +27,7 @@
         <td><%= link_to 'Edit', edit_document_path(document) %></td>
         <td><%= link_to 'Delete', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <script>use+=<%= document.file_size  %>;</script> 
     <% end %>
   </tbody>
 </table>
@@ -31,3 +35,33 @@
 <br>
 
 <%= link_to 'New Document', new_document_path %>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+
+
+  google.charts.load('current', {'packages':['corechart']});
+
+
+  google.charts.setOnLoadCallback(drawChart);
+
+
+  function drawChart() {
+
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string');
+    data.addColumn('number');
+    data.addRows([
+      ['Not used', 500000-use],
+      ['Used', use] 
+    ]);
+
+    var options = {'title':'Disk Usage','width':400,'height':300};
+
+    var chart = new google.visualization.PieChart(document.getElementById('chart'));
+    chart.draw(data, options);
+  }
+</script>
