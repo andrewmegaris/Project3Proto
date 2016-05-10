@@ -39,9 +39,5 @@ cd bin
 rake db:migrate RAILS_ENV=development
 cd ..
 
-#output status messages
+#output status message
 echo Installation Complete!
-echo Starting the Hawk Cloud application...
-
-#launch the cloud server application on port 80
-rvmsudo rails server --binding=0.0.0.0 --port=80
