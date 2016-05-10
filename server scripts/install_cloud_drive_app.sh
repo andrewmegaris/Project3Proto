@@ -6,6 +6,9 @@
 #This script will set up the cloud drive application on a linux distribution (Rasbian in our case).
 #It can take a few hours to compile ruby 2.3.0 and install all dependencies on the Raspberry pi.
 
+#output status message
+echo Hawk Cloud installation starting...
+
 #update the Raspberry pi
 sudo apt-get update
 sudo apt-get upgrade
@@ -35,6 +38,10 @@ bundle install
 cd bin
 rake db:migrate RAILS_ENV=development
 cd ..
+
+#output status messages
+echo Installation Complete!
+echo Starting the Hawk Cloud application...
 
 #launch the cloud server application on port 80
 rvmsudo rails server --binding=0.0.0.0 --port=80
