@@ -16,7 +16,7 @@
   </thead>
 
   <tbody>
-    <script>var use = 0;</script>
+    <script>var use = 0;</script> <!--variable to be used later, indicates total space used by documents-->
     <% @documents.each do |document| %>
       <tr>
         <td><%= document.filename %></td>
@@ -27,7 +27,7 @@
         <td><%= link_to 'Edit', edit_document_path(document) %></td>
         <td><%= link_to 'Delete', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-      <script>use+=<%= document.file_size  %>;</script> 
+      <script>use+=<%= document.file_size  %>;</script> <!--Add each document's size to total disk usage-->
     <% end %>
   </tbody>
 </table>
@@ -36,27 +36,27 @@
 
 <%= link_to 'New Document', new_document_path %>
 
-
+<!--Load the AJAX API-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
+<!--Create the chart-->
 <script type="text/javascript">
 
-
+  // Load the Visualization API and the corechart package.
   google.charts.load('current', {'packages':['corechart']});
 
-
+  // Set a callback to run when the Google Visualization API is loaded.
   google.charts.setOnLoadCallback(drawChart);
 
-
+  // Callback that creates a data table
   function drawChart() {
 
-
+    // Create the data table
     var data = new google.visualization.DataTable();
     data.addColumn('string');
     data.addColumn('number');
     data.addRows([
-      ['Not used', 500000-use],
-      ['Used', use] 
+      ['Not used', 500000-use], //Not used based on 500 MB of storage
+      ['Used', use] //From previous scripts
     ]);
 
     var options = {'title':'Disk Usage','width':400,'height':300};
