@@ -21,13 +21,13 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
   
-  test "user name less than 48 char" do
-    @user.name = "z" * 48 
+  test "user name less than 51 char" do
+    @user.name = "a" * 51 
     assert_not @user.valid?
   end
   
-  test "user base email less than 216 char" do 
-    @user.email = "z" * 216 + "@example.com"
+  test "user base email less than 244 char" do 
+    @user.email = "a" * 244 + "@example.com"
     assert_not @user.valid?
   end
   

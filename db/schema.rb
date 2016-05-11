@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408034058) do
+ActiveRecord::Schema.define(version: 20160424183919) do
 
   create_table "documents", force: :cascade do |t|
     t.string   "filename"
@@ -19,12 +19,22 @@ ActiveRecord::Schema.define(version: 20160408034058) do
     t.binary   "file_contents"
     t.string   "file_size"
     t.integer  "user_id"
+    t.integer  "folder_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
-  add_index "documents", ["user_id", "created_at"], name: "index_documents_on_user_id_and_created_at"
+  add_index "documents", ["folder_id"], name: "index_documents_on_folder_id"
+  add_index "documents", ["user_id", "created_at", "folder_id"], name: "index_documents_on_user_id_and_created_at_and_folder_id"
   add_index "documents", ["user_id"], name: "index_documents_on_user_id"
+
+  create_table "folders", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
